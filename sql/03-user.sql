@@ -1,0 +1,37 @@
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT FROM pg_catalog.pg_roles
+        WHERE rolname = 'sdl_user'
+    ) THEN
+        CREATE ROLE sdl_user LOGIN PASSWORD 'password';
+    ELSE
+        ALTER ROLE sdl_user
+        WITH LOGIN PASSWORD 'password';
+    END IF;
+END
+$$;
+
+
+GRANT CONNECT ON DATABASE university TO sdl_user;
+
+GRANT USAGE ON SCHEMA public TO sdl_user;
+
+GRANT SELECT, INSERT, UPDATE
+ON ALL TABLES IN SCHEMA public
+TO sdl_user;
+
+GRANT USAGE, SELECT
+ON ALL SEQUENCES IN SCHEMA public
+TO sdl_user;
+
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA public
+GRANT SELECT, INSERT, UPDATE
+ON TABLES
+TO sdl_user;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA public
+GRANT USAGE, SELECT
+ON SEQUENCES
+TO sdl_user;

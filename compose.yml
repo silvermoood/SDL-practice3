@@ -1,0 +1,52 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: postgres18-task3
+
+    environment:
+      POSTGRES_DB: university
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_admin
+
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+      - ./sql/01-schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./sql/02-data.sql:/docker-entrypoint-initdb.d/02-data.sql:ro
+      - ./sql/03-user.sql:/docker-entrypoint-initdb.d/03-user.sql:ro
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U postgres -d university"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: university-app:1.0
+
+    container_name: university-app
+
+    env_file:
+      - .env
+
+    stdin_open: true
+    tty: true
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    volumes:
+      - ./logs:/app/logs
+
+
+volumes:
+  postgres_data:

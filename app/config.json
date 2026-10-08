@@ -1,0 +1,101 @@
+{
+    "tables": {
+        "groups": {
+            "columns": [
+                "id",
+                "name",
+                "course"
+            ],
+            "editable_columns": [
+                "name",
+                "course"
+            ],
+            "insert_columns": [
+                "name",
+                "course"
+            ]
+        },
+
+        "students": {
+            "columns": [
+                "id",
+                "first_name",
+                "middle_name",
+                "last_name",
+                "email",
+                "group_id"
+            ],
+            "editable_columns": [
+                "first_name",
+                "middle_name",
+                "last_name",
+                "email",
+                "group_id"
+            ],
+            "insert_columns": [
+                "first_name",
+                "middle_name",
+                "last_name",
+                "email",
+                "group_id"
+            ]
+        },
+
+        "teachers": {
+            "columns": [
+                "id",
+                "first_name",
+                "middle_name",
+                "last_name",
+                "email"
+            ],
+            "editable_columns": [
+                "first_name",
+                "middle_name",
+                "last_name",
+                "email"
+            ],
+            "insert_columns": [
+                "first_name",
+                "middle_name",
+                "last_name",
+                "email"
+            ]
+        },
+
+        "subjects": {
+            "columns": [
+                "id",
+                "name",
+                "teacher_id"
+            ],
+            "editable_columns": [
+                "name",
+                "teacher_id"
+            ],
+            "insert_columns": [
+                "name",
+                "teacher_id"
+            ]
+        },
+
+        "enrollments": {
+            "columns": [
+                "id",
+                "student_id",
+                "subject_id",
+                "grade"
+            ],
+            "editable_columns": [
+                "student_id",
+                "subject_id",
+                "grade"
+            ],
+            "insert_columns": [
+                "student_id",
+                "subject_id",
+                "grade"
+            ]
+        }
+    }
+}
